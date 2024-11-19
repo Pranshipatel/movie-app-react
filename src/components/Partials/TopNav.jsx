@@ -1,4 +1,4 @@
-import axios from './../utils/axios'
+import axios from '../../utils/axios'
 import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 
@@ -28,7 +28,7 @@ const TopNav = () => {
 
     return (
         <div className='w-full h-[10vh] relative flex justify-start items-center ml-[20%]'>
-            <i className="text-zinc-400 text-3xl ri-search-line"></i>
+            <i className="text-zinc-400 text-2xl ri-search-line"></i>
             <input
                 onChange={(e) => setquery(e.target.value)}
                 value={query}

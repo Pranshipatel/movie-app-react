@@ -36,7 +36,7 @@ const Trending = () => {
       <div className='text-gray-600 p-2  w-full flex justify-between items-center  '>
         <h1 className='font-semibold text-2xl'>
           <i onClick={() => navigate(-1)} className="ri-arrow-left-line mr-1 hover:text-[#6556CD]"></i>
-          Trending
+          Trendings
         </h1>
         <div className="mr-[5%] w-[60%]">
         <TopNav />

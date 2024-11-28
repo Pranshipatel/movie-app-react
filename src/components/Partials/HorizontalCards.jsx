@@ -1,12 +1,13 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 
-const HorizontalCards = ({data , func}) => {
+const HorizontalCards = ({data}) => {
+  
   return (
         
-      <div className="card  w-[100%] flex h-[35vh]  overflow-x-auto gap-3 mb-5 p-5">
+      <div className="card  w-[100%] flex h-[35vh]   overflow-x-auto gap-3 mb-5 p-5">
          {data.map((data,index)=>(
-            
+             
             <Link to={`/${data.media_type}/details/${data.id}`}
             key={index}
              className='min-w-[15%]  flex  flex-col gap-2 bg-zinc-900 text-white rounded-sm overflow-hidden'>

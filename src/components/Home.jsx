@@ -5,7 +5,7 @@ import Header from './Partials/Header'
 import Dropdown from './Partials/Dropdown'
 import HorizontalCards from './Partials/HorizontalCards'
 import SideNav from './Partials/SideNav'
-import Loading from './Loading'
+import Loading from './pages/Loading'
 
 const Home = () => {
     document.title = "Alibi || Movie"
@@ -38,7 +38,7 @@ const Home = () => {
   },[category])
 
   return  wallpaper ? (
-    <>
+    <div className=' w-full h-[100vh] flex overflow-x-hidden  '>
     <SideNav/>
     <div className=' w-[80%] h-full overflow-y-auto overflow-x-hidden'>
         <TopNav/>
@@ -49,7 +49,7 @@ const Home = () => {
         </div>
         <HorizontalCards data={trending}  />
     </div>
-    </>
+    </div>
   )
    : <Loading/>
 }

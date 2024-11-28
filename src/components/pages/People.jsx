@@ -1,24 +1,24 @@
-import axios from '../utils/axios'
-import React, { useEffect, useState } from 'react'
+import React, {  useEffect,useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import Loading from './Loading'
-import TopNav from './Partials/TopNav'
-import Dropdown from './Partials/Dropdown'
+import TopNav from '../Partials/TopNav'
+import Dropdown from '../Partials/Dropdown'
 import InfiniteScroll from 'react-infinite-scroll-component'
-import Card from './Partials/Card'
+import Card from '../Partials/Card'
+import axios from '../../utils/axios'
 
-const Popular = () => {
+const People = () => {
     const navigate = useNavigate()
-    const [category, setCategory] = useState('movie')
-    const [popular, setPopular] = useState([])
+    const [category, setCategory] = useState('popular')
+    const [people, setPerson] = useState([])
     const [page, setPage] = useState(1)
     const [hasMore, setHasMore] = useState(true)
     const [loading, setLoading] = useState(false)
   
     document.title = "Popular" + category
 
-    // Function to fetch popular data
-    const GetPopularData = async () => {
+    // Function to fetch people data
+    const GetPeopleData = async () => {
       if (loading) return; // Prevent simultaneous requests
   
       setLoading(true)
@@ -26,15 +26,15 @@ const Popular = () => {
   
       try {
         // Construct the request URL with URL encoded parameters
-        const { data } = await axios.get(`${encodedCategory}/popular?page=${page}`)
+        const { data } = await axios.get(`/person/popular?page=${page}`)
         if (data.results.length > 0) {
-          setPopular((prevState) => [...prevState, ...data.results])
+          setPerson((prevState) => [...prevState, ...data.results])
           setPage(prevPage => prevPage + 1) // Increase page for pagination
         } else {
           setHasMore(false) // No more results
         }
       } catch (error) {
-        console.error("Error fetching popular data:", error)
+        console.error("Error fetching people data:", error)
         setHasMore(false) // Stop further requests if an error occurs
       } finally {
         setLoading(false) // Stop loading
@@ -45,8 +45,8 @@ const Popular = () => {
     const refreshHandler = async () => {
       setPage(1) // Reset page to 1 for the fresh request
       setHasMore(true) // Enable pagination
-      setPopular([]) // Clear existing data
-      GetPopularData() // Fetch new data
+      setPerson([]) // Clear existing data
+      GetPeopleData() // Fetch new data
     }
   
     // Fetch data when category or duration changes
@@ -54,31 +54,30 @@ const Popular = () => {
       refreshHandler()
     }, [category])
   
-  return popular.length > 0 ? (
+  return people.length > 0 ? (
     <div className="w-screen h-screen">
       <div className="text-gray-600 px-7 py-2 w-full flex justify-between items-center">
         <h1 className="font-semibold text-2xl">
           <i onClick={() => navigate(-1)} className="ri-arrow-left-line mr-1 hover:text-[#6556CD]"></i>
-          Popular
+          People
         </h1>
         <div className="mr-[5%] w-[60%]">
           <TopNav />
         </div>
-        <div className="flex gap-4">
-          <Dropdown title="Category" option={['tv', 'movies']} func={(e) => setCategory(e.target.value)} />
-        </div>
+        
       </div>
 
       <InfiniteScroll
-        dataLength={popular.length}
-        next={GetPopularData}
+        dataLength={people.length}
+        next={GetPeopleData}
         hasMore={hasMore}
         loader={<h1 className="text-white">Loading...</h1>}
       >
-        <Card data={popular} title={category} />
+        <Card data={people} title="people" />
       </InfiniteScroll>
     </div>
   ) : <Loading />
+
 }
 
-export default Popular
+export default People

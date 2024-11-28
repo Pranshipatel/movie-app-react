@@ -1,11 +1,11 @@
 import React, {  useEffect,useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import Loading from './Loading'
-import TopNav from './Partials/TopNav'
-import Dropdown from './Partials/Dropdown'
+import TopNav from '../Partials/TopNav'
+import Dropdown from '../Partials/Dropdown'
 import InfiniteScroll from 'react-infinite-scroll-component'
-import Card from './Partials/Card'
-import axios from '../utils/axios'
+import Card from '../Partials/Card'
+import axios from '../../utils/axios'
 
 const Tv = () => {
     const navigate = useNavigate()

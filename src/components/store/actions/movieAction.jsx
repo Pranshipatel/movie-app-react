@@ -11,15 +11,18 @@ export const asyncloadMovie = (id)=>async(dispatch,getState)=>{
     const similar = await axios.get(`/movie/${id}/similar`)
     const videos = await axios.get(`/movie/${id}/videos`)
     const watchproviders = await axios.get(`/movie/${id}/watch/providers`)
+
+    // console.log("Fetched videos:", videos.data.results);
+
     let wholeData = {
       detail : detail.data,
       externalid: externalid.data,
       recommendations: recommendations.data.results,
       similar: similar.data.results,
-      videos: videos.data.results.find((m)=>m.type == "Trailer"),
+      videos: videos.data.results.find((m)=>m.type == "Trailer") || null,
       watchproviders: watchproviders.data.results.US
     }
-
+    // console.log("Selected trailer:", wholeData.videos);
     dispatch(loadMovie(wholeData))
     console.log("whole",wholeData);
   } catch (error) {

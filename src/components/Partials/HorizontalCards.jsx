@@ -5,22 +5,16 @@ const HorizontalCards = ({data}) => {
   
   return (
         
-      <div className="card  w-[100%] flex h-[35vh]   overflow-x-auto gap-3 mb-5 p-5">
-         {data.map((data,index)=>(
-             
-            <Link to={`/${data.media_type}/details/${data.id}`}
-            key={index}
-             className='min-w-[15%]  flex  flex-col gap-2 bg-zinc-900 text-white rounded-sm overflow-hidden'>
-                <img className='w-full object-cover h-[50%]' src={`https://image.tmdb.org/t/p/original/${data.backdrop_path || data.profile_path}`} alt="" />
-                <h1 className='text-lg ml-1 font-semibold'>{
-                data.title ||
-                data.name ||
-                data.original_name ||
-                data.original_title
-            }</h1>
-            <p className='ml-1'>{data.overview.slice(0,70)}<Link className='text-blue-300' > ...more</Link></p>
+      <div className="w-full flex overflow-x-auto gap-4 mb-8 p-8 bg-zinc-800 rounded-lg shadow-lg">
+         {data.length > 0 ? data.map((item, index) => (
+             <Link to={`/${item.media_type}/details/${item.id}`} key={index} className="min-w-[20%] flex flex-col gap-4 bg-zinc-700 text-white rounded-lg overflow-hidden shadow-md transition duration-300 ease-in-out hover:scale-105">
+                <img className='w-full object-cover h-[60%]' src={`https://image.tmdb.org/t/p/original/${item.backdrop_path || item.profile_path}`} alt="" />
+                <div className="flex flex-col gap-2">
+                  <h1 className='text-xl font-bold'>{item.title || item.name || item.original_name || item.original_title}</h1>
+                  <p className='text-sm'>{item.overview.slice(0, 100)}<Link className='text-blue-500 hover:text-blue-700'> ...more</Link></p>
+                </div>
             </Link>
-         ))}
+         )) : <h1 className="text-white text-center">Nothing to show</h1>} 
       </div>
   )
 }

@@ -58,7 +58,7 @@ const Trending = () => {
   }, [category, duration])
 
   return trending.length > 0 ? (
-    <div className="w-screen h-screen">
+    <div className="w-screen h-screen overflow-y-auto">
       <div className="text-gray-600 px-7 py-2 w-full flex justify-between items-center">
         <h1 className="font-semibold text-2xl">
           <i onClick={() => navigate(-1)} className="ri-arrow-left-line mr-1 hover:text-[#6556CD]"></i>

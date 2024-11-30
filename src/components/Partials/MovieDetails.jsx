@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, Outlet, useNavigate, useParams } from 'react-router-dom'
 import { asyncloadMovie, removeMovie } from '../store/actions/movieAction';
@@ -11,13 +11,15 @@ const MovieDetails = () => {
   const {id} = useParams();
   const dispatch = useDispatch();
   const {info} = useSelector((state)=> state.movie);
+  const [showTrailer, setShowTrailer] = useState(false);
   useEffect(()=>{
     dispatch(asyncloadMovie(id));
     return () => {
       dispatch(removeMovie())
     }
   },[])
-  // console.log( info.watchproviders)
+  const trailerKey = info?.videos?.key;
+  console.log(trailerKey)
   return info ? (
     <div 
     style={{
@@ -80,10 +82,13 @@ const MovieDetails = () => {
            )).join(" | ")}</h2>
            </div>
            <p className='mb-4'>{info.detail.overview}</p>
-
-           <Link to="trailer" className='bg-[#6556CD] px-5 py-3 rounded-full text-white font-bold'>
-            Watch Now
-          </Link>          
+           <button
+        className="bg-[#6556CD] px-5 py-3 rounded-full text-white font-bold"
+        onClick={() => setShowTrailer(true)} // Set state to show trailer
+      >
+        Watch Now
+      </button> 
+      {showTrailer && <Trailer videoKey={trailerKey} />}
         </div>
       </div>
 
